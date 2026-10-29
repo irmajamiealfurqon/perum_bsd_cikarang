@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikatan Remaja Masjid Jamie Al-Furqon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 15px;
+            
+            background-color: #ffffff8f;
+            background-image: 
+                linear-gradient(rgba(143, 98, 45, 0.13333333333333333), rgba(15, 3, 2, 0.85)), 
+                url('IMG-20261028-WA0019.jpg'); 
+            
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        body::after {
+            content: "background";
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .page {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-title {
+            margin-bottom: 20px;
+        }
+
+        .header-title h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffcc00;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 4px;
+        }
+
+        .header-title h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .logo-wrapper {
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle at 30% 30%, #ff4a4a18, #cc000014 70%, #800000 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 5px 15px rgba(255, 255, 255, 0.2);
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-wrapper:hover {
+            transform: scale(1.03);
+        }
+
+        .logo-wrapper img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 8px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .footer-bottom-left {
+            position: fixed;
+            bottom: 15px;
+            left: 20px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.4;
+            text-align: left;
+            pointer-events: none;
+            z-index: 2;
+            display: none; 
+        }
+
+        #home-page.active ~ .footer-bottom-left,
+        body .footer-bottom-left.active {
+            display: block;
+        }
+
+        .content-card {
+            background: rgba(0, 0, 0, 0.3568627450980392);
+            border: 1px solid rgba(255, 204, 0, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12941176470588237);
+            backdrop-filter: blur(2px);
+            margin-bottom: 20px;
+        }
+
+        .content-card h3 {
+            color: #ffcc00;
+            font-size: 16px;
+            margin-bottom: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 204, 0, 0.2);
+            padding-bottom: 6px;
+        }
+
+        .photo-frame-card {
+            background: rgba(30, 8, 6, 0.9);
+            border: 1px solid rgba(255, 204, 0, 0.4);
+            border-radius: 15px;
+            padding: 12px;
+            width: 100%;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 220px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px dashed rgba(0, 0, 0, 0.5019607843137255);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-section {
+            margin-bottom: 12px;
+        }
+
+        .info-section h4 {
+            color: #ff9999;
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+        .info-section p {
+            font-size: 12px;
+            line-height: 1.4;
+            color: #e0e0e0;
+        }
+
+        /* Styling Bagan Struktur Organisasi & Bingkai Foto Pengurus yang Seragam */
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .org-top-row {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .org-box {
+            background: linear-gradient(135deg, #fa2c00, #fa2c00);
+            color: #2b1d0c;
+            border: 5px solid #fa2c00;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            width: 50%;
+            max-width: 150px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .org-box.penasihat {
+            background: linear-gradient(135deg, #fa2c00, #ffeeba);
+            border-color: #ffc1062d;
+        }
+
+        .org-box.ketua {
+            background: linear-gradient(135deg, #fa2c00, #ffeeba);
+            border-color: #ffc1062d;
+        }
+
+        .org-box.wakil {
+            background: linear-gradient(135deg, #fa2c00, #ffeeba);
+            border-color: #ffc1062d;
+            width: 85%;
+            max-width: 150px;
+        }
+
+        .org-photo-frame {
+            width: 100px;
+            height: 125px;
+            margin: 0 auto 12px auto;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .org-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .org-title {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 3px;
+            color: #444;
+        }
+
+        .org-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffffb4;
+        }
+
+        .org-connector {
+            width: 2px;
+            height: 15px;
+            background-color: #d4af37;
+        }
+
+        .org-grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .org-sub-box {
+            background: #caafab43;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #ccc;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .org-sub-box.sekretaris { border-top: 4px solid #fa2c00; }
+        .org-sub-box.bendahara { border-top: 4px solid #fa2c00; }
+        .org-sub-box.humas { border-top: 4px solid #ef6c00; }
+        .org-sub-box.konsumsi { border-top: 4px solid #c62828; }
+
+        .media-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .media-item {
+            background: rgba(161, 105, 46, 0.5215686274509804);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .media-item:hover {
+            background: rgba(255, 204, 0, 0.25);
+            border-color: #ffcc00;
+            transform: translateX(4px);
+        }
+
+        .back-btn {
+            background-color: #ffcc00;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+            margin-bottom: 25px;
+        }
+
+        .back-btn:hover {
+            background-color: #ffdd33;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ================= 1. HALAMAN UTAMA ================= -->
+        <div id="home-page" class="page active">
+            <div class="header-title">
+                <h1>IKATAN REMAJA MASJID</h1>
+                <h2>JAMIE AL-FURQON</h2>
+            </div>
+
+            <div class="logo-wrapper">
+                <img src="IMG_20261028_064132-removebg-preview.png" alt="Logo Remas Al-Furqon">
+            </div>
+
+            <div class="button-group">
+                <button class="nav-btn" onclick="switchPage('beranda-page')">Beranda</button>
+                <button class="nav-btn" onclick="switchPage('struktur-page')">Struktur Organisasi</button>
+                <button class="nav-btn" onclick="switchPage('media-page')">Media</button>
+            </div>
+          
+            <div class="content-card">
+                <div class="photo-frame">
+                    <img src="IMG-20261018-WA0007.jpg" alt="Dokumentasi Remas Al-Furqon">
+                </div>
+            </div>
+            <div class="content-card">
+                <div class="photo-frame">
+                    <img src="IMG_20261028_092559.jpg" alt="foto remaja irma">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= 2. HALAMAN BERANDA ================= -->
+        <div id="beranda-page" class="page">
+            <div class="header-title">
+                <h1>TENTANG KAMI</h1>
+                <h2>IKATAN REMAJA MASJID</h2>
+            </div>
+
+            <div class="content-card">
+                <h3>Profil & Informasi IRMA</h3>
+                
+                <div class="info-section">
+                    <h4>1. Apa itu IRMA?</h4>
+                    <p>IRMA (Ikatan Remaja Masjid) adalah wadah pembinaan, kegiatan, dan berkumpulnya para pemuda-pemudi muslim yang berpusat di masjid untuk mempererat Ukhuwah Islamiyah.</p>
+                <div class="photo-frame">
+                  <img src="IMG_20261029_050828.jpg" alt="warga">
+                </div>
+                
+            </div>
+
+                <div class="info-section">
+                    <h4>2. Siapa yang ikut serta ke dalam IRMA?</h4>
+                    <p>Anggota IRMA adalah para remaja dan pemuda sekitar masjid (tingkat SMP, SMA/SMK, hingga mahasiswa/umum) yang aktif memakmurkan masjid di Perum BSD ini.</p>
+             <div class="photo-frame">
+               <img src="IMG_20261029_051333.jpg" alt="photo remaja">
+             </div>
+                </div>
+
+                <div class="info-section">
+                    <h4>3. Mengapa IRMA didirikan?</h4>
+                    <p>Untuk membentengi generasi muda dari pengaruh negatif zaman, mengarahkan energi positif pada kegiatan bermanfaat, serta melahirkan kader pemimpin islam berakhlak mulia.</p>
+             <div class="photo-frame">
+               <img src="IMG_20261029_123615.jpg" alt="foto mc">
+             </div>
+                </div>
+
+                <div class="info-section">
+                    <h4>4. Manfaat IRMA terhadap lingkungan</h4>
+                    <p>Menciptakan lingkungan masyarakat yang religius, mempererat kebersamaan antarwarga, serta menjadikan masjid sebagai pusat kegiatan positif anak muda.</p>
+                <div class="photo-frame">
+                  <img src="IMG-20261028-WA0014.jpg">
+                </div>
+                </div>
+            </div>
+
+            <button class="back-btn" onclick="switchPage('home-page')">&larr; Kembali ke Menu Utama</button>
+        </div>
+
+
+        <!-- ================= 3. HALAMAN STRUKTUR ORGANISASI ================= -->
+        <div id="struktur-page" class="page">
+            <div class="header-title">
+                <h1>STRUKTUR ORGANISASI</h1>
+                <h2>JAMIE AL-FURQON</h2>
+            </div>
+
+            <div class="content-card">
+                <h3>Bagan Kepengurusan</h3>
+                
+                <div class="org-chart">
+                    <!-- BARIS ATAS: PENASIHAT (KETUA DKM) & KETUA -->
+                    <div class="org-top-row">
+                        <div class="org-box penasihat">
+                            <div class="org-photo-frame">
+                                <img src="foto-beni.jpg" alt="Foto Penasihat">
+                            </div>
+                            <div class="org-title">Pembina</div>
+                            <div class="org-name">Beni</div>
+                        </div>
+
+                        <div class="org-box ketua">
+                            <div class="org-photo-frame">
+                                <img src="IMG_20261029_122655.jpg" alt="Foto Ketua">
+                            </div>
+                            <div class="org-title">Ketua</div>
+                            <div class="org-name">Gilang</div>
+                        </div>
+                    </div>
+
+                    <div class="org-connector"></div>
+
+                    <!-- WAKIL KETUA -->
+                    <div class="org-box wakil">
+                        <div class="org-photo-frame">
+                            <img src="IMG_20261029_122606.jpg" alt="Foto Wakil Ketua">
+                        </div>
+                        <div class="org-title">Wakil Ketua</div>
+                        <div class="org-name">Evan</div>
+                    </div>
+
+                    <div class="org-connector"></div>
+
+                    <!-- BIDANG-BIDANG (SEKRETARIS, BENDAHARA, HUMAS, KONSUMSI) -->
+                    <div class="org-grid-container">
+                        <div class="org-sub-box sekretaris">
+                            <div class="org-photo-frame">
+                                <img src="IMG-20261029-WA0002.jpg" alt="Foto Sekretaris">
+                            </div>
+                            <div class="org-title" style="color: #bfcec0;">Sekretaris</div>
+                            <div class="org-name">Zaima</div>
+                        </div>
+
+                        <div class="org-sub-box bendahara">
+                            <div class="org-photo-frame">
+                                <img src="IMG_20261029_120953.jpg" alt="Foto Bendahara">
+                            </div>
+                            <div class="org-title" style="color: #bfcec0;">Bendahara</div>
+                            <div class="org-name">Nayya</div>
+                        </div>
+
+                        <div class="org-sub-box humas">
+                            <div class="org-photo-frame">
+                                <img src="IMG_20261029_120550.jpg" alt="Foto Humas">
+                            </div>
+                            <div class="org-title" style="color: #bfcec0;">Humas</div>
+                            <div class="org-name">Farida</div>
+                        </div>
+
+                        <div class="org-sub-box konsumsi">
+                            <div class="org-photo-frame">
+                                <img src="IMG-20261029-WA0003.jpg" alt="Foto Konsumsi">
+                            </div>
+                            <div class="org-title" style="color: #bfcec0;">Konsumsi</div>
+                            <div class="org-name">Dila</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="back-btn" onclick="switchPage('home-page')">&larr; Kembali ke Menu Utama</button>
+        </div>
+
+
+        <!-- ================= 4. HALAMAN MEDIA SOSIAL ================= -->
+        <div id="media-page" class="page">
+            <div class="header-title">
+                <h1>MEDIA SOSIAL</h1>
+                <h2>JAMIE AL-FURQON</h2>
+            </div>
+
+            <div class="content-card">
+                <h3>Terhubung Dengan Kami</h3>
+                <p style="font-size: 12px; color: #cccccc; margin-bottom: 12px; text-align: center;">Pilih platform media sosial resmi kami di bawah ini:</p>
+                
+                <div class="media-list">
+                    <a href="https://tiktok.com" target="_blank" class="media-item">
+                        <span>TikTok</span> &rarr;
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="media-item">
+                        <span>Instagram</span> &rarr;
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="media-item">
+                        <span>Facebook</span> &rarr;
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="media-item">
+                        <span>Twitter / X</span> &rarr;
+                    </a>
+                    <a href="https://youtube.com" target="_blank" class="media-item">
+                        <span>YouTube</span> &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <button class="back-btn" onclick="switchPage('home-page')">&larr; Kembali ke Menu Utama</button>
+        </div>
+
+    </div>
+
+    <div id="footer-left" class="footer-bottom-left active">
+        website_resmi_irma_jami, Al-Furqon<br>
+        terbit_tahun_2026<br>
+        Buatan_remaja_irma
+    </div>
+
+    <script>
+        function switchPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+
+            const footerLeft = document.getElementById('footer-left');
+            if (pageId === 'home-page') {
+                footerLeft.classList.add('active');
+            } else {
+                footerLeft.classList.remove('active');
+            }
+
+            window.scrollTo(0, 0);
+        }
+    </script>
+
+</body>
+</html>
